@@ -7,7 +7,7 @@
  */
 $SOUNDS_CONFIG = [
 	//Enable system sounds
-	'IS_ENABLED' => true,
+	'IS_ENABLED' => false,
 	//Table with file names
 	'REMINDERS' => 'sound_1.mp3',
 ];
