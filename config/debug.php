@@ -10,7 +10,7 @@ $DEBUG_CONFIG = [
 	 * 	Logger 
 	 * ************************************************************** */
 	// Enable saving logs to file. Values: false/true
-	'LOG_TO_FILE' => true,
+	'LOG_TO_FILE' => true, // default
 	// Enable displaying logs in debug console. Values: false/true
 	'LOG_TO_CONSOLE' => false,
 	// Enable saving logs profiling.  Values: false/true
