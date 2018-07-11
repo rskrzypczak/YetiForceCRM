@@ -18,7 +18,7 @@ class Admin extends \App\Db\Importers\Base
 		$this->tables = [
 			'a_#__adv_permission' => [
 				'columns' => [
-					'id' => $this->primaryKey(5)->unsigned(),
+					'id' => $this->smallInteger(5)->unsigned()->autoIncrement()->notNull(),
 					'name' => $this->stringType()->notNull(),
 					'tabid' => $this->smallInteger(5),
 					'status' => $this->smallInteger(1)->unsigned()->notNull(),
@@ -33,7 +33,10 @@ class Admin extends \App\Db\Importers\Base
 					'priority' => $this->tinyInteger(1)->unsigned()->notNull(),
 				],
 				'index' => [
-						['tabid', 'tabid'],
+					['tabid', 'tabid'],
+				],
+				'primaryKeys' => [
+					['adv_permission_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -55,7 +58,7 @@ class Admin extends \App\Db\Importers\Base
 			],
 			'a_#__bruteforce_blocked' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'ip' => $this->stringType(50)->notNull(),
 					'time' => $this->timestamp()->null(),
 					'attempts' => $this->smallInteger(2)->defaultValue(0),
@@ -67,7 +70,10 @@ class Admin extends \App\Db\Importers\Base
 					'blocked' => $this->tinyInteger(1)->defaultValue(0),
 				],
 				'index' => [
-						['bf1_mixed', ['ip', 'time', 'blocked']],
+					['bf1_mixed', ['ip', 'time', 'blocked']],
+				],
+				'primaryKeys' => [
+					['bruteforce_blocked_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -77,7 +83,7 @@ class Admin extends \App\Db\Importers\Base
 					'id' => $this->integer(10)->notNull(),
 				],
 				'primaryKeys' => [
-						['bruteforce_users_pk', 'id']
+					['bruteforce_users_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -88,20 +94,23 @@ class Admin extends \App\Db\Importers\Base
 					'value' => $this->stringType()->notNull(),
 				],
 				'primaryKeys' => [
-						['discounts_config_pk', 'param']
+					['discounts_config_pk', 'param']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'a_#__discounts_global' => [
 				'columns' => [
-					'id' => $this->primaryKey(10)->unsigned(),
+					'id' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'name' => $this->stringType(50)->notNull(),
 					'value' => $this->decimal('5,2')->unsigned()->notNull()->defaultValue(0),
 					'status' => $this->smallInteger(1)->notNull()->defaultValue(1),
 				],
 				'columns_mysql' => [
 					'status' => $this->tinyInteger(1)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['discounts_global_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -116,7 +125,7 @@ class Admin extends \App\Db\Importers\Base
 			],
 			'a_#__inventory_limits' => [
 				'columns' => [
-					'id' => $this->primaryKey(10)->unsigned(),
+					'id' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'status' => $this->smallInteger(1)->notNull()->defaultValue(0),
 					'name' => $this->stringType(50)->notNull(),
 					'value' => $this->integer(10)->unsigned()->notNull(),
@@ -125,14 +134,17 @@ class Admin extends \App\Db\Importers\Base
 					'status' => $this->tinyInteger(1)->notNull()->defaultValue(0),
 				],
 				'index' => [
-						['status', 'status'],
+					['status', 'status'],
+				],
+				'primaryKeys' => [
+					['inventory_limits_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'a_#__mapped_config' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'tabid' => $this->smallInteger(5)->unsigned()->notNull(),
 					'reltabid' => $this->smallInteger(5)->unsigned()->notNull(),
 					'status' => $this->smallInteger(1)->unsigned()->defaultValue(0),
@@ -144,16 +156,19 @@ class Admin extends \App\Db\Importers\Base
 					'status' => $this->tinyInteger(1)->unsigned()->defaultValue(0),
 				],
 				'index' => [
-						['tabid', 'tabid'],
-						['reltabid', 'reltabid'],
-						['tabid_2', ['tabid', 'status']],
+					['tabid', 'tabid'],
+					['reltabid', 'reltabid'],
+					['tabid_2', ['tabid', 'status']],
+				],
+				'primaryKeys' => [
+					['mapped_config_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'a_#__mapped_fields' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'mappedid' => $this->integer(10),
 					'type' => $this->stringType(30),
 					'source' => $this->stringType(30),
@@ -161,14 +176,17 @@ class Admin extends \App\Db\Importers\Base
 					'default' => $this->stringType(),
 				],
 				'index' => [
-						['a_yf_mapped_fields_ibfk_1', 'mappedid'],
+					['a_yf_mapped_fields_ibfk_1', 'mappedid'],
+				],
+				'primaryKeys' => [
+					['mapped_fields_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'a_#__pdf' => [
 				'columns' => [
-					'pdfid' => $this->primaryKey(10)->unsigned(),
+					'pdfid' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'module_name' => $this->stringType(25)->notNull(),
 					'header_content' => $this->text()->notNull(),
 					'body_content' => $this->text()->notNull(),
@@ -214,8 +232,39 @@ class Admin extends \App\Db\Importers\Base
 					'one_pdf' => $this->tinyInteger(1),
 				],
 				'index' => [
-						['module_name', ['module_name', 'status']],
-						['module_name_2', 'module_name'],
+					['module_name', ['module_name', 'status']],
+					['module_name_2', 'module_name'],
+				],
+				'primaryKeys' => [
+					['pdf_pk', 'pdfid']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'a_#__record_converter' => [
+				'columns' => [
+					'id' => $this->smallInteger(10)->notNull(),
+					'name' => $this->stringType(),
+					'status' => $this->smallInteger(1),
+					'source_module' => $this->smallInteger(5)->notNull(),
+					'destiny_module' => $this->stringType()->notNull(),
+					'field_merge' => $this->stringType(50),
+					'field_mappging' => $this->text(),
+					'inv_field_mapping' => $this->text(),
+					'redirect_to_edit' => $this->smallInteger(1),
+					'change_view' => $this->smallInteger(5),
+					'check_duplicate' => $this->smallInteger(1),
+				],
+				'columns_mysql' => [
+					'status' => $this->tinyInteger(1),
+					'redirect_to_edit' => $this->tinyInteger(1),
+					'check_duplicate' => $this->tinyInteger(1),
+				],
+				'index' => [
+					['a_yf_record_converter_fk_tab', 'source_module'],
+				],
+				'primaryKeys' => [
+					['record_converter_pk', ['id', 'source_module', 'destiny_module']]
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -230,14 +279,14 @@ class Admin extends \App\Db\Importers\Base
 					'sequence' => $this->tinyInteger(1),
 				],
 				'index' => [
-						['relation_id', 'relation_id'],
+					['relation_id', 'relation_id'],
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'a_#__smsnotifier_servers' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'providertype' => $this->stringType(50)->notNull(),
 					'isactive' => $this->smallInteger(1)->defaultValue(0),
 					'api_key' => $this->stringType()->notNull(),
@@ -245,6 +294,9 @@ class Admin extends \App\Db\Importers\Base
 				],
 				'columns_mysql' => [
 					'isactive' => $this->tinyInteger(1)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['smsnotifier_servers_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -255,27 +307,92 @@ class Admin extends \App\Db\Importers\Base
 					'value' => $this->stringType()->notNull(),
 				],
 				'primaryKeys' => [
-						['taxes_config_pk', 'param']
+					['taxes_config_pk', 'param']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'a_#__taxes_global' => [
 				'columns' => [
-					'id' => $this->primaryKey(10)->unsigned(),
+					'id' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'name' => $this->stringType(50)->notNull(),
 					'value' => $this->decimal('5,2')->unsigned()->notNull()->defaultValue(0),
 					'status' => $this->smallInteger(1)->notNull()->defaultValue(1),
+					'default' => $this->smallInteger(1)->notNull()->defaultValue(0),
 				],
 				'columns_mysql' => [
 					'status' => $this->tinyInteger(1)->notNull()->defaultValue(1),
+					'default' => $this->tinyInteger(1)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['taxes_global_pk', 'id']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'a_#__testdata_ids' => [
+				'columns' => [
+					'id' => $this->integer(19)->notNull(),
+				],
+				'primaryKeys' => [
+					['testdata_ids_pk', 'id']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'a_#__testdata_tasks' => [
+				'columns' => [
+					'module' => $this->stringType(30)->notNull(),
+					'limit' => $this->integer()->notNull()->defaultValue(0),
+					'language' => $this->stringType(5)->notNull(),
+					'done' => $this->integer()->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['testdata_tasks_pk', 'module']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			's_#__address_finder' => [
+				'columns' => [
+					'id' => $this->integer()->unsigned()->autoIncrement()->notNull(),
+					'name' => $this->stringType(),
+					'level1' => $this->stringType(100),
+					'level2' => $this->stringType(100),
+					'level3' => $this->stringType(100),
+					'level4' => $this->stringType(100),
+					'level5' => $this->stringType(100),
+					'level6' => $this->stringType(100),
+					'level7' => $this->stringType(100),
+					'level8' => $this->stringType(100),
+					'source' => $this->stringType(10),
+				],
+				'index' => [
+					['source', 'source'],
+					['name', 'name'],
+				],
+				'primaryKeys' => [
+					['address_finder_pk', 'id']
+				],
+				'engine' => 'MyISAM',
+				'charset' => 'utf8'
+			],
+			's_#__address_finder_config' => [
+				'columns' => [
+					'id' => $this->smallInteger(4)->unsigned()->notNull(),
+					'name' => $this->stringType(50)->notNull(),
+					'type' => $this->stringType(50)->notNull(),
+					'val' => $this->stringType()->notNull(),
+				],
+				'primaryKeys' => [
+					['address_finder_config_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			's_#__automatic_assignment' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'tabid' => $this->smallInteger(5)->unsigned()->notNull(),
 					'field' => $this->stringType(30)->notNull(),
 					'value' => $this->stringType(),
@@ -291,27 +408,33 @@ class Admin extends \App\Db\Importers\Base
 					'active' => $this->tinyInteger(1)->defaultValue(1),
 					'user_limit' => $this->tinyInteger(1),
 				],
+				'primaryKeys' => [
+					['automatic_assignment_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			's_#__batchmethod' => [
 				'columns' => [
-					'id' => $this->primaryKey()->unsigned(),
+					'id' => $this->integer()->unsigned()->autoIncrement()->notNull(),
 					'method' => $this->stringType(50)->notNull(),
 					'params' => $this->text()->notNull(),
 					'created_time' => $this->date()->notNull(),
 					'status' => $this->smallInteger(1)->unsigned()->notNull(),
-					'userid' => $this->integer()
+					'userid' => $this->integer(),
 				],
 				'columns_mysql' => [
-					'status' => $this->tinyInteger(1)->unsigned()->notNull()
+					'status' => $this->tinyInteger(1)->unsigned()->notNull(),
+				],
+				'primaryKeys' => [
+					['batchmethod_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			's_#__companies' => [
 				'columns' => [
-					'id' => $this->primaryKey(5)->unsigned(),
+					'id' => $this->smallInteger(5)->unsigned()->autoIncrement()->notNull(),
 					'name' => $this->stringType(100)->notNull(),
 					'short_name' => $this->stringType(100),
 					'default' => $this->smallInteger(1)->unsigned()->notNull()->defaultValue(0),
@@ -341,12 +464,15 @@ class Admin extends \App\Db\Importers\Base
 					'logo_main_height' => $this->tinyInteger(3)->unsigned(),
 					'logo_mail_height' => $this->tinyInteger(3)->unsigned(),
 				],
+				'primaryKeys' => [
+					['companies_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			's_#__mail_queue' => [
 				'columns' => [
-					'id' => $this->primaryKey(10)->unsigned(),
+					'id' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'smtp_id' => $this->integer(10)->unsigned()->notNull()->defaultValue(1),
 					'date' => $this->dateTime()->notNull(),
 					'owner' => $this->integer(10)->notNull(),
@@ -365,7 +491,10 @@ class Admin extends \App\Db\Importers\Base
 					'priority' => $this->tinyInteger(1)->unsigned()->notNull()->defaultValue(1),
 				],
 				'index' => [
-						['smtp_id', 'smtp_id'],
+					['smtp_id', 'smtp_id'],
+				],
+				'primaryKeys' => [
+					['mail_queue_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -376,14 +505,14 @@ class Admin extends \App\Db\Importers\Base
 					'crmid' => $this->integer(10)->unsigned()->notNull(),
 				],
 				'index' => [
-						['tabid', 'tabid'],
+					['tabid', 'tabid'],
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			's_#__mail_smtp' => [
 				'columns' => [
-					'id' => $this->primaryKey(10)->unsigned(),
+					'id' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'mailer_type' => $this->stringType(10)->defaultValue('smtp'),
 					'default' => $this->smallInteger(1)->unsigned()->notNull()->defaultValue(0),
 					'name' => $this->stringType()->notNull(),
@@ -414,6 +543,9 @@ class Admin extends \App\Db\Importers\Base
 					'save_send_mail' => $this->tinyInteger(1)->defaultValue(0),
 					'smtp_validate_cert' => $this->tinyInteger(1)->defaultValue(0),
 				],
+				'primaryKeys' => [
+					['mail_smtp_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
@@ -428,14 +560,14 @@ class Admin extends \App\Db\Importers\Base
 					'type' => $this->tinyInteger(1)->notNull()->defaultValue(0),
 				],
 				'index' => [
-						['source_module', ['source_module', 'dest_module']],
+					['source_module', ['source_module', 'dest_module']],
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			's_#__pbx' => [
 				'columns' => [
-					'pbxid' => $this->primaryKey(5)->unsigned(),
+					'pbxid' => $this->smallInteger(5)->unsigned()->autoIncrement()->notNull(),
 					'default' => $this->smallInteger(1)->unsigned()->notNull()->defaultValue(0),
 					'name' => $this->stringType(50),
 					'type' => $this->stringType(50),
@@ -443,6 +575,9 @@ class Admin extends \App\Db\Importers\Base
 				],
 				'columns_mysql' => [
 					'default' => $this->tinyInteger(1)->unsigned()->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['pbx_pk', 'pbxid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -459,28 +594,32 @@ class Admin extends \App\Db\Importers\Base
 					'type' => $this->tinyInteger(1)->notNull()->defaultValue(0),
 				],
 				'index' => [
-						['module', ['module', 'crmid', 'type'], true],
-						['crmid', 'crmid'],
+					['module', ['module', 'crmid', 'type'], true],
+					['crmid', 'crmid'],
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			's_#__smsnotifier_queue' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'message' => $this->stringType()->notNull(),
 					'tonumbers' => $this->text()->notNull(),
 					'records' => $this->text()->notNull(),
 					'module' => $this->stringType(30)->notNull(),
+				],
+				'primaryKeys' => [
+					['smsnotifier_queue_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 		];
 		$this->foreignKey = [
-				['fk_1_vtiger_bruteforce_users', 'a_#__bruteforce_users', 'id', 'vtiger_users', 'id', 'CASCADE', 'RESTRICT'],
-				['a_#__mapped_fields_ibfk_1', 'a_#__mapped_fields', 'mappedid', 'a_#__mapped_config', 'id', 'CASCADE', 'RESTRICT'],
-				['s_#__mail_queue_ibfk_1', 's_#__mail_queue', 'smtp_id', 's_#__mail_smtp', 'id', 'CASCADE', 'RESTRICT'],
+			['fk_1_vtiger_bruteforce_users', 'a_#__bruteforce_users', 'id', 'vtiger_users', 'id', 'CASCADE', 'RESTRICT'],
+			['a_#__mapped_fields_ibfk_1', 'a_#__mapped_fields', 'mappedid', 'a_#__mapped_config', 'id', 'CASCADE', 'RESTRICT'],
+			['a_#__record_converter_fk_tab', 'a_#__record_converter', 'source_module', 'vtiger_tab', 'tabid', 'RESTRICT', 'RESTRICT'],
+			['s_#__mail_queue_ibfk_1', 's_#__mail_queue', 'smtp_id', 's_#__mail_smtp', 'id', 'CASCADE', 'RESTRICT'],
 		];
 	}
 

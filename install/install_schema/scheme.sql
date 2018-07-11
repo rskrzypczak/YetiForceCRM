@@ -3214,6 +3214,15 @@ CREATE TABLE `u_yf_srecurringorders_inventory` (
   `tax` decimal(28,8) NOT NULL DEFAULT 0.00000000,
   `taxparam` varchar(255) NOT NULL,
   `comment1` text DEFAULT NULL,
+  `price` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `total` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `net` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `purchase` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `gross` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `discountmode` tinyint(1) NOT NULL DEFAULT 0,
+  `taxmode` tinyint(1) NOT NULL DEFAULT 0,
+  `currency` int(10) DEFAULT NULL,
+  `currencyparam` varchar(1024) DEFAULT NULL,
   `qtyparam` tinyint(1) DEFAULT 0,
   `unit` varchar(255) DEFAULT NULL,
   `subunit` varchar(255) DEFAULT NULL,
@@ -3236,7 +3245,7 @@ CREATE TABLE `u_yf_srecurringorders_invfield` (
   `params` text DEFAULT NULL,
   `colspan` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `u_yf_srecurringorders_invmap` */
 
@@ -4072,7 +4081,7 @@ CREATE TABLE `vtiger_authy_methods` (
   `presence` tinyint(1) DEFAULT 1,
   `sortorderid` smallint(6) DEFAULT 0,
   PRIMARY KEY (`authy_methodsid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `vtiger_blocks` */
 

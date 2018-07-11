@@ -33,7 +33,7 @@ class Webservice extends \App\Db\Importers\Base
 			],
 			'w_#__portal_user' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'server_id' => $this->integer(10),
 					'status' => $this->smallInteger(1)->defaultValue(0),
 					'user_name' => $this->stringType(50)->notNull(),
@@ -54,12 +54,15 @@ class Webservice extends \App\Db\Importers\Base
 					['user_name', 'user_name', true],
 					['user_name_2', ['user_name', 'status']],
 				],
+				'primaryKeys' => [
+					['portal_user_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'w_#__servers' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'name' => $this->stringType(100)->notNull(),
 					'pass' => $this->stringType(100),
 					'acceptable_url' => $this->stringType(),
@@ -73,6 +76,9 @@ class Webservice extends \App\Db\Importers\Base
 				],
 				'index' => [
 					['name', ['name', 'status']],
+				],
+				'primaryKeys' => [
+					['servers_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'

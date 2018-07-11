@@ -125,7 +125,7 @@ Vtiger_Edit_Js("Documents_Edit_Js", {}, {
 		var fileLocationTypeElement = form.find('[name="filelocationtype"]');
 		if (typeof file !== "undefined" && thisInstance.isFileLocationInternalType(fileLocationTypeElement)) {
 			formData.append("filename", file);
-			delete file;
+			file = false;
 		}
 		if (formData) {
 			var params = {
@@ -135,13 +135,11 @@ Vtiger_Edit_Js("Documents_Edit_Js", {}, {
 				processData: false,
 				contentType: false
 			};
-			AppConnector.request(params).then(
-				function (data) {
-					aDeferred.resolve(data);
-				},
-				function (textStatus, errorThrown) {
-					aDeferred.reject(textStatus, errorThrown);
-				});
+			AppConnector.request(params).done(function (data) {
+				aDeferred.resolve(data);
+			}).fail(function (textStatus, errorThrown) {
+				aDeferred.reject(textStatus, errorThrown);
+			});
 		}
 		return aDeferred.promise();
 	},

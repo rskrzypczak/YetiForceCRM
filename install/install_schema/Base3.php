@@ -18,7 +18,7 @@ class Base3 extends \App\Db\Importers\Base
 		$this->tables = [
 			'vtiger_glacct' => [
 				'columns' => [
-					'glacctid' => $this->primaryKey(10),
+					'glacctid' => $this->integer(10)->autoIncrement()->notNull(),
 					'glacct' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
@@ -26,6 +26,9 @@ class Base3 extends \App\Db\Importers\Base
 				],
 				'index' => [
 					['glacct_glacct_idx', 'glacct', true],
+				],
+				'primaryKeys' => [
+					['glacct_pk', 'glacctid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -128,11 +131,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_holidaysentitlement_year' => [
 				'columns' => [
-					'holidaysentitlement_yearid' => $this->primaryKey(10),
+					'holidaysentitlement_yearid' => $this->integer(10)->autoIncrement()->notNull(),
 					'holidaysentitlement_year' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['holidaysentitlement_year_pk', 'holidaysentitlement_yearid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -156,11 +162,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_hour_format' => [
 				'columns' => [
-					'hour_formatid' => $this->primaryKey(10),
+					'hour_formatid' => $this->integer(10)->autoIncrement()->notNull(),
 					'hour_format' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['hour_format_pk', 'hour_formatid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -198,11 +207,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_ideasstatus' => [
 				'columns' => [
-					'ideasstatusid' => $this->primaryKey(10),
+					'ideasstatusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'ideasstatus' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['ideasstatus_pk', 'ideasstatusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -216,84 +228,105 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_igdn_status' => [
 				'columns' => [
-					'igdn_statusid' => $this->primaryKey(10),
+					'igdn_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'igdn_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['igdn_status_pk', 'igdn_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_igdnc_status' => [
 				'columns' => [
-					'igdnc_statusid' => $this->primaryKey(10),
+					'igdnc_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'igdnc_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['igdnc_status_pk', 'igdnc_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_igin_status' => [
 				'columns' => [
-					'igin_statusid' => $this->primaryKey(10),
+					'igin_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'igin_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['igin_status_pk', 'igin_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_igrn_status' => [
 				'columns' => [
-					'igrn_statusid' => $this->primaryKey(10),
+					'igrn_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'igrn_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['igrn_status_pk', 'igrn_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_igrnc_status' => [
 				'columns' => [
-					'igrnc_statusid' => $this->primaryKey(10),
+					'igrnc_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'igrnc_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['igrnc_status_pk', 'igrnc_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_iidn_status' => [
 				'columns' => [
-					'iidn_statusid' => $this->primaryKey(10),
+					'iidn_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'iidn_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['iidn_status_pk', 'iidn_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_import_locks' => [
 				'columns' => [
-					'vtiger_import_lock_id' => $this->primaryKey(10)->unsigned(),
+					'vtiger_import_lock_id' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'userid' => $this->integer(10)->notNull(),
 					'tabid' => $this->smallInteger(5)->notNull(),
 					'importid' => $this->integer(10)->notNull(),
 					'locked_since' => $this->dateTime(),
+				],
+				'primaryKeys' => [
+					['import_locks_pk', 'vtiger_import_lock_id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_import_maps' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'name' => $this->stringType(36)->notNull(),
 					'module' => $this->stringType(36)->notNull(),
 					'content' => $this->binary(),
@@ -307,12 +340,15 @@ class Base3 extends \App\Db\Importers\Base
 				'index' => [
 					['import_maps_assigned_user_id_module_name_deleted_idx', ['assigned_user_id', 'module', 'name', 'deleted']],
 				],
+				'primaryKeys' => [
+					['import_maps_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_import_queue' => [
 				'columns' => [
-					'importid' => $this->primaryKey(10),
+					'importid' => $this->integer(10)->autoIncrement()->notNull(),
 					'userid' => $this->integer(10)->notNull(),
 					'tabid' => $this->smallInteger(5)->unsigned()->notNull(),
 					'field_mapping' => $this->text(),
@@ -324,12 +360,47 @@ class Base3 extends \App\Db\Importers\Base
 				'columns_mysql' => [
 					'temp_status' => $this->tinyInteger(1)->defaultValue(0),
 				],
+				'primaryKeys' => [
+					['import_queue_pk', 'importid']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'vtiger_incidentregister_status' => [
+				'columns' => [
+					'incidentregister_statusid' => $this->integer()->autoIncrement()->notNull(),
+					'incidentregister_status' => $this->stringType(),
+					'presence' => $this->smallInteger(1)->defaultValue(1),
+					'sortorderid' => $this->smallInteger()->defaultValue(0),
+				],
+				'columns_mysql' => [
+					'presence' => $this->tinyInteger(1)->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['incidentregister_status_pk', 'incidentregister_statusid']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'vtiger_incidentregister_type' => [
+				'columns' => [
+					'incidentregister_typeid' => $this->integer()->autoIncrement()->notNull(),
+					'incidentregister_type' => $this->stringType(),
+					'presence' => $this->smallInteger(1)->defaultValue(1),
+					'sortorderid' => $this->smallInteger()->defaultValue(0),
+				],
+				'columns_mysql' => [
+					'presence' => $this->tinyInteger(1)->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['incidentregister_type_pk', 'incidentregister_typeid']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_industry' => [
 				'columns' => [
-					'industryid' => $this->primaryKey(10),
+					'industryid' => $this->integer(10)->autoIncrement()->notNull(),
 					'industry' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
@@ -337,6 +408,9 @@ class Base3 extends \App\Db\Importers\Base
 				],
 				'index' => [
 					['industry_industry_idx', 'industry', true],
+				],
+				'primaryKeys' => [
+					['industry_pk', 'industryid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -350,7 +424,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_internal_tickets_status' => [
 				'columns' => [
-					'internal_tickets_statusid' => $this->primaryKey(10),
+					'internal_tickets_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'internal_tickets_status' => $this->stringType(),
 					'presence' => $this->smallInteger(1)->defaultValue(1),
 					'picklist_valueid' => $this->smallInteger(5)->defaultValue(0),
@@ -359,14 +433,20 @@ class Base3 extends \App\Db\Importers\Base
 				'columns_mysql' => [
 					'presence' => $this->tinyInteger(1)->defaultValue(1),
 				],
+				'primaryKeys' => [
+					['internal_tickets_status_pk', 'internal_tickets_statusid']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_inventory_tandc' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'type' => $this->stringType(30)->notNull(),
 					'tandc' => $this->text(),
+				],
+				'primaryKeys' => [
+					['inventory_tandc_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -383,7 +463,7 @@ class Base3 extends \App\Db\Importers\Base
 					'comment' => $this->stringType(500),
 					'description' => $this->text(),
 					'incrementondel' => $this->integer(10)->notNull()->defaultValue(0),
-					'lineitem_id' => $this->primaryKey(10),
+					'lineitem_id' => $this->integer(10)->autoIncrement()->notNull(),
 					'tax' => $this->stringType(10),
 					'tax1' => $this->decimal('7,3'),
 					'tax2' => $this->decimal('7,3'),
@@ -395,6 +475,9 @@ class Base3 extends \App\Db\Importers\Base
 				'index' => [
 					['inventoryproductrel_id_idx', 'id'],
 					['inventoryproductrel_productid_idx', 'productid'],
+				],
+				'primaryKeys' => [
+					['inventoryproductrel_pk', 'lineitem_id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -417,82 +500,103 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_ipreorder_status' => [
 				'columns' => [
-					'ipreorder_statusid' => $this->primaryKey(10),
+					'ipreorder_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'ipreorder_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['ipreorder_status_pk', 'ipreorder_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_istdn_status' => [
 				'columns' => [
-					'istdn_statusid' => $this->primaryKey(10),
+					'istdn_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'istdn_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['istdn_status_pk', 'istdn_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_istn_status' => [
 				'columns' => [
-					'istn_statusid' => $this->primaryKey(10),
+					'istn_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'istn_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['istn_status_pk', 'istn_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_istn_type' => [
 				'columns' => [
-					'istn_typeid' => $this->primaryKey(10),
+					'istn_typeid' => $this->integer(10)->autoIncrement()->notNull(),
 					'istn_type' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['istn_type_pk', 'istn_typeid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_istrn_status' => [
 				'columns' => [
-					'istrn_statusid' => $this->primaryKey(10),
+					'istrn_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'istrn_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['istrn_status_pk', 'istrn_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_knowledgebase_status' => [
 				'columns' => [
-					'knowledgebase_statusid' => $this->primaryKey(10),
+					'knowledgebase_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'knowledgebase_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['knowledgebase_status_pk', 'knowledgebase_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_knowledgebase_view' => [
 				'columns' => [
-					'knowledgebase_viewid' => $this->primaryKey(10),
+					'knowledgebase_viewid' => $this->integer(10)->autoIncrement()->notNull(),
 					'knowledgebase_view' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['knowledgebase_view_pk', 'knowledgebase_viewid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_language' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'name' => $this->stringType(50)->notNull(),
 					'prefix' => $this->stringType(10)->notNull(),
 					'label' => $this->stringType(30)->notNull(),
@@ -507,6 +611,9 @@ class Base3 extends \App\Db\Importers\Base
 				],
 				'index' => [
 					['prefix', 'prefix'],
+				],
+				'primaryKeys' => [
+					['language_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -539,10 +646,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_lead_view' => [
 				'columns' => [
-					'lead_viewid' => $this->primaryKey(10),
+					'lead_viewid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lead_view' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10)->notNull()->defaultValue(0),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['lead_view_pk', 'lead_viewid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -646,10 +756,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_leads_relation' => [
 				'columns' => [
-					'leads_relationid' => $this->primaryKey(10),
+					'leads_relationid' => $this->integer(10)->autoIncrement()->notNull(),
 					'leads_relation' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['leads_relation_pk', 'leads_relationid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -673,11 +786,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_leadsource' => [
 				'columns' => [
-					'leadsourceid' => $this->primaryKey(10),
+					'leadsourceid' => $this->integer(10)->autoIncrement()->notNull(),
 					'leadsource' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10),
+				],
+				'primaryKeys' => [
+					['leadsource_pk', 'leadsourceid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -691,7 +807,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_leadstage' => [
 				'columns' => [
-					'leadstageid' => $this->primaryKey(10),
+					'leadstageid' => $this->integer(10)->autoIncrement()->notNull(),
 					'stage' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10)->notNull()->defaultValue(0),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
@@ -699,17 +815,23 @@ class Base3 extends \App\Db\Importers\Base
 				'index' => [
 					['leadstage_stage_idx', 'stage', true],
 				],
+				'primaryKeys' => [
+					['leadstage_pk', 'leadstageid']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_leadstatus' => [
 				'columns' => [
-					'leadstatusid' => $this->primaryKey(10),
+					'leadstatusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'leadstatus' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10),
 					'color' => $this->stringType(25)->defaultValue('#E6FAD8'),
+				],
+				'primaryKeys' => [
+					['leadstatus_pk', 'leadstatusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -737,10 +859,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_legal_form' => [
 				'columns' => [
-					'legal_formid' => $this->primaryKey(10),
+					'legal_formid' => $this->integer(10)->autoIncrement()->notNull(),
 					'legal_form' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['legal_form_pk', 'legal_formid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -768,6 +893,14 @@ class Base3 extends \App\Db\Importers\Base
 					'cocument_no' => $this->stringType(100)->defaultValue(''),
 					'no_internal' => $this->stringType(100)->defaultValue(''),
 					'lin_dimensions' => $this->stringType()->defaultValue(''),
+					'custom_sender' => $this->stringType(),
+					'lin_type' => $this->stringType(),
+					'cash_amount_on_delivery' => $this->decimal('25,8'),
+					'date_of_receipt' => $this->date(),
+					'outgoing_correspondence' => $this->integer(10),
+				],
+				'index' => [
+					['vtiger_lettersin_outgoing_correspondence_idx', 'outgoing_correspondence'],
 				],
 				'primaryKeys' => [
 					['lettersin_pk', 'lettersinid']
@@ -778,6 +911,8 @@ class Base3 extends \App\Db\Importers\Base
 			'vtiger_lettersincf' => [
 				'columns' => [
 					'lettersinid' => $this->integer(10)->notNull(),
+					'internal_notes' => $this->text(),
+					'public_notes' => $this->text(),
 				],
 				'primaryKeys' => [
 					['lettersincf_pk', 'lettersinid']
@@ -801,6 +936,10 @@ class Base3 extends \App\Db\Importers\Base
 					'cocument_no' => $this->stringType(100)->defaultValue(''),
 					'no_internal' => $this->stringType(100)->defaultValue(''),
 					'lout_dimensions' => $this->stringType()->defaultValue(''),
+					'incoming_correspondence' => $this->integer(10),
+				],
+				'index' => [
+					['vtiger_lettersout_incoming_correspondence_idx', 'incoming_correspondence'],
 				],
 				'primaryKeys' => [
 					['lettersout_pk', 'lettersoutid']
@@ -820,10 +959,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_lin_dimensions' => [
 				'columns' => [
-					'lin_dimensionsid' => $this->primaryKey(10),
+					'lin_dimensionsid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lin_dimensions' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['lin_dimensions_pk', 'lin_dimensionsid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -837,11 +979,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_lin_status' => [
 				'columns' => [
-					'lin_statusid' => $this->primaryKey(10),
+					'lin_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lin_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['lin_status_pk', 'lin_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -853,13 +998,32 @@ class Base3 extends \App\Db\Importers\Base
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
+			'vtiger_lin_type' => [
+				'columns' => [
+					'lin_typeid' => $this->integer()->autoIncrement()->notNull(),
+					'lin_type' => $this->stringType(),
+					'presence' => $this->smallInteger(1)->defaultValue(1),
+					'sortorderid' => $this->smallInteger()->defaultValue(0),
+				],
+				'columns_mysql' => [
+					'presence' => $this->tinyInteger(1)->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['lin_type_pk', 'lin_typeid']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
 			'vtiger_lin_type_doc' => [
 				'columns' => [
-					'lin_type_docid' => $this->primaryKey(10),
+					'lin_type_docid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lin_type_doc' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['lin_type_doc_pk', 'lin_type_docid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -873,10 +1037,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_lin_type_ship' => [
 				'columns' => [
-					'lin_type_shipid' => $this->primaryKey(10),
+					'lin_type_shipid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lin_type_ship' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['lin_type_ship_pk', 'lin_type_shipid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -890,7 +1057,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_links' => [
 				'columns' => [
-					'linkid' => $this->primaryKey(10),
+					'linkid' => $this->integer(10)->autoIncrement()->notNull(),
 					'tabid' => $this->smallInteger(5),
 					'linktype' => $this->stringType(50),
 					'linklabel' => $this->stringType(50),
@@ -908,12 +1075,31 @@ class Base3 extends \App\Db\Importers\Base
 					['linkid', ['linkid', 'tabid', 'linktype', 'linklabel']],
 					['linktype', 'linktype'],
 				],
+				'primaryKeys' => [
+					['links_pk', 'linkid']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'vtiger_locationregister_status' => [
+				'columns' => [
+					'locationregister_statusid' => $this->integer()->autoIncrement()->notNull(),
+					'locationregister_status' => $this->stringType(),
+					'presence' => $this->smallInteger(1)->defaultValue(1),
+					'sortorderid' => $this->smallInteger()->defaultValue(0),
+				],
+				'columns_mysql' => [
+					'presence' => $this->tinyInteger(1)->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['locationregister_status_pk', 'locationregister_statusid']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_loginhistory' => [
 				'columns' => [
-					'login_id' => $this->primaryKey(10),
+					'login_id' => $this->integer(10)->autoIncrement()->notNull(),
 					'user_name' => $this->stringType(32),
 					'user_ip' => $this->stringType(100)->notNull(),
 					'logout_time' => $this->timestamp()->null(),
@@ -925,15 +1111,21 @@ class Base3 extends \App\Db\Importers\Base
 					['user_name', 'user_name'],
 					['user_ip', ['user_ip', 'login_time', 'status']],
 				],
+				'primaryKeys' => [
+					['loginhistory_pk', 'login_id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_lout_dimensions' => [
 				'columns' => [
-					'lout_dimensionsid' => $this->primaryKey(10),
+					'lout_dimensionsid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lout_dimensions' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['lout_dimensions_pk', 'lout_dimensionsid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -947,11 +1139,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_lout_status' => [
 				'columns' => [
-					'lout_statusid' => $this->primaryKey(10),
+					'lout_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lout_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['lout_status_pk', 'lout_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -965,11 +1160,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_lout_type_doc' => [
 				'columns' => [
-					'lout_type_docid' => $this->primaryKey(10),
+					'lout_type_docid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lout_type_doc' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['lout_type_doc_pk', 'lout_type_docid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -983,10 +1181,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_lout_type_ship' => [
 				'columns' => [
-					'lout_type_shipid' => $this->primaryKey(10),
+					'lout_type_shipid' => $this->integer(10)->autoIncrement()->notNull(),
 					'lout_type_ship' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['lout_type_ship_pk', 'lout_type_shipid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1026,7 +1227,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_manufacturer' => [
 				'columns' => [
-					'manufacturerid' => $this->primaryKey(10),
+					'manufacturerid' => $this->integer(10)->autoIncrement()->notNull(),
 					'manufacturer' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
@@ -1034,6 +1235,9 @@ class Base3 extends \App\Db\Importers\Base
 				],
 				'index' => [
 					['manufacturer_manufacturer_idx', 'manufacturer', true],
+				],
+				'primaryKeys' => [
+					['manufacturer_pk', 'manufacturerid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1051,7 +1255,7 @@ class Base3 extends \App\Db\Importers\Base
 					'commentcontent' => $this->text(),
 					'related_to' => $this->integer(10),
 					'parent_comments' => $this->integer(10),
-					'customer' => $this->stringType(100),
+					'customer' => $this->integer(),
 					'userid' => $this->integer(10),
 					'reasontoedit' => $this->stringType(100),
 				],
@@ -1080,7 +1284,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_modentity_num' => [
 				'columns' => [
-					'id' => $this->primaryKey(5)->unsigned(),
+					'id' => $this->smallInteger(5)->unsigned()->autoIncrement()->notNull(),
 					'tabid' => $this->smallInteger(5)->unsigned()->notNull(),
 					'prefix' => $this->stringType(50)->notNull()->defaultValue(''),
 					'postfix' => $this->stringType(50)->notNull()->defaultValue(''),
@@ -1093,12 +1297,15 @@ class Base3 extends \App\Db\Importers\Base
 					['tabid', 'tabid'],
 					['tabid_2', ['tabid', 'cur_id']],
 				],
+				'primaryKeys' => [
+					['modentity_num_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_modtracker_basic' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'crmid' => $this->integer(10),
 					'module' => $this->stringType(50),
 					'whodid' => $this->integer(10),
@@ -1111,6 +1318,9 @@ class Base3 extends \App\Db\Importers\Base
 					['idx', 'id'],
 					['id', ['id', 'module', 'changedon']],
 					['crmid', ['crmid', 'changedon']],
+				],
+				'primaryKeys' => [
+					['modtracker_basic_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1160,7 +1370,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_module_dashboard' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'blockid' => $this->integer(10)->notNull(),
 					'linkid' => $this->integer(10),
 					'filterid' => $this->stringType(100),
@@ -1181,12 +1391,15 @@ class Base3 extends \App\Db\Importers\Base
 				'index' => [
 					['vtiger_module_dashboard_ibfk_1', 'blockid'],
 				],
+				'primaryKeys' => [
+					['module_dashboard_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_module_dashboard_blocks' => [
 				'columns' => [
-					'id' => $this->primaryKey(100)->unsigned(),
+					'id' => $this->integer(100)->unsigned()->autoIncrement()->notNull(),
 					'authorized' => $this->stringType(10)->notNull(),
 					'tabid' => $this->smallInteger(5)->unsigned()->notNull(),
 					'dashboard_id' => $this->integer(10),
@@ -1195,12 +1408,15 @@ class Base3 extends \App\Db\Importers\Base
 					['authorized', ['authorized', 'tabid']],
 					['tabid', 'tabid'],
 				],
+				'primaryKeys' => [
+					['module_dashboard_blocks_pk', 'id']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_module_dashboard_widgets' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'linkid' => $this->integer(10)->notNull(),
 					'userid' => $this->integer(10),
 					'templateid' => $this->integer(10)->notNull(),
@@ -1209,7 +1425,7 @@ class Base3 extends \App\Db\Importers\Base
 					'data' => $this->text(),
 					'size' => $this->stringType(50),
 					'limit' => $this->smallInteger(2),
-					'position' => $this->stringType(50),
+					'position' => $this->text(),
 					'isdefault' => $this->smallInteger(1)->defaultValue(0),
 					'active' => $this->smallInteger(1)->defaultValue(0),
 					'owners' => $this->stringType(100),
@@ -1231,15 +1447,37 @@ class Base3 extends \App\Db\Importers\Base
 					['vtiger_module_dashboard_widgets_dashboardid_idx', 'dashboardid'],
 					['vtiger_module_dashboard_widgets_module_idx', 'module'],
 				],
+				'primaryKeys' => [
+					['module_dashboard_widgets_pk', 'id']
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'vtiger_mulcomp_status' => [
+				'columns' => [
+					'mulcomp_statusid' => $this->integer()->autoIncrement()->notNull(),
+					'mulcomp_status' => $this->stringType(),
+					'presence' => $this->smallInteger(1)->defaultValue(1),
+					'sortorderid' => $this->smallInteger()->defaultValue(0),
+				],
+				'columns_mysql' => [
+					'presence' => $this->tinyInteger(1)->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['mulcomp_status_pk', 'mulcomp_statusid']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_no_of_currency_decimals' => [
 				'columns' => [
-					'no_of_currency_decimalsid' => $this->primaryKey(10),
+					'no_of_currency_decimalsid' => $this->integer(10)->autoIncrement()->notNull(),
 					'no_of_currency_decimals' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['no_of_currency_decimals_pk', 'no_of_currency_decimalsid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1298,28 +1536,34 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_notification_status' => [
 				'columns' => [
-					'notification_statusid' => $this->primaryKey(10),
+					'notification_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'notification_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['notification_status_pk', 'notification_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_notification_type' => [
 				'columns' => [
-					'notification_typeid' => $this->primaryKey(10),
+					'notification_typeid' => $this->integer(10)->autoIncrement()->notNull(),
 					'notification_type' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['notification_type_pk', 'notification_typeid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_opportunitystage' => [
 				'columns' => [
-					'potstageid' => $this->primaryKey(10),
+					'potstageid' => $this->integer(10)->autoIncrement()->notNull(),
 					'stage' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10)->notNull()->defaultValue(0),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
@@ -1328,16 +1572,22 @@ class Base3 extends \App\Db\Importers\Base
 				'index' => [
 					['opportunitystage_stage_idx', 'stage', true],
 				],
+				'primaryKeys' => [
+					['opportunitystage_pk', 'potstageid']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_oproductstatus' => [
 				'columns' => [
-					'oproductstatusid' => $this->primaryKey(10),
+					'oproductstatusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'oproductstatus' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['oproductstatus_pk', 'oproductstatusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1376,11 +1626,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_ossdc_status' => [
 				'columns' => [
-					'ossdc_statusid' => $this->primaryKey(10),
+					'ossdc_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'ossdc_status' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['ossdc_status_pk', 'ossdc_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1448,11 +1701,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_osservicesstatus' => [
 				'columns' => [
-					'osservicesstatusid' => $this->primaryKey(10),
+					'osservicesstatusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'osservicesstatus' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['osservicesstatus_pk', 'osservicesstatusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1466,7 +1722,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_ossmails_logs' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'start_time' => $this->timestamp()->null(),
 					'end_time' => $this->timestamp()->null(),
 					'action' => $this->stringType(100),
@@ -1478,6 +1734,9 @@ class Base3 extends \App\Db\Importers\Base
 				],
 				'columns_mysql' => [
 					'status' => $this->tinyInteger(3),
+				],
+				'primaryKeys' => [
+					['ossmails_logs_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1507,10 +1766,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_ossmailscanner_log_cron' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'created_time' => $this->timestamp()->null(),
 					'laststart' => $this->integer(10)->unsigned(),
 					'status' => $this->stringType(50),
+				],
+				'primaryKeys' => [
+					['ossmailscanner_log_cron_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1590,11 +1852,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_ossmailview_sendtype' => [
 				'columns' => [
-					'ossmailview_sendtypeid' => $this->primaryKey(10),
+					'ossmailview_sendtypeid' => $this->integer(10)->autoIncrement()->notNull(),
 					'ossmailview_sendtype' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['ossmailview_sendtype_pk', 'ossmailview_sendtypeid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1658,9 +1923,14 @@ class Base3 extends \App\Db\Importers\Base
 					'password' => $this->stringType(200)->notNull(),
 					'link_adres' => $this->stringType(),
 					'linkto' => $this->integer(10),
+					'linkextend' => $this->integer(10),
 				],
 				'columns_mysql' => [
 					'password' => $this->varbinary(200)->notNull(),
+				],
+				'index' => [
+					['linkto', 'linkto'],
+					['linkextend', 'linkextend'],
 				],
 				'primaryKeys' => [
 					['osspasswords_pk', 'osspasswordsid']
@@ -1711,11 +1981,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_osssoldservices_renew' => [
 				'columns' => [
-					'osssoldservices_renewid' => $this->primaryKey(10),
+					'osssoldservices_renewid' => $this->integer(10)->autoIncrement()->notNull(),
 					'osssoldservices_renew' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['osssoldservices_renew_pk', 'osssoldservices_renewid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1746,6 +2019,7 @@ class Base3 extends \App\Db\Importers\Base
 					'process' => $this->integer(10),
 					'link' => $this->integer(10),
 					'subprocess' => $this->integer(10),
+					'linkextend' => $this->integer(10),
 				],
 				'index' => [
 					['on_update_cascade', 'deleted'],
@@ -1754,6 +2028,7 @@ class Base3 extends \App\Db\Importers\Base
 					['subprocess', 'subprocess'],
 					['link', 'link'],
 					['process', 'process'],
+					['linkextend', 'linkextend'],
 				],
 				'primaryKeys' => [
 					['osstimecontrol_pk', 'osstimecontrolid']
@@ -1763,11 +2038,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_osstimecontrol_status' => [
 				'columns' => [
-					'osstimecontrol_statusid' => $this->primaryKey(10),
+					'osstimecontrol_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'osstimecontrol_status' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['osstimecontrol_status_pk', 'osstimecontrol_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1791,10 +2069,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_othereventduration' => [
 				'columns' => [
-					'othereventdurationid' => $this->primaryKey(10),
+					'othereventdurationid' => $this->integer(10)->autoIncrement()->notNull(),
 					'othereventduration' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10),
 					'presence' => $this->integer(10)->notNull()->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['othereventduration_pk', 'othereventdurationid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1816,7 +2097,7 @@ class Base3 extends \App\Db\Importers\Base
 					'oproductstatus' => $this->stringType(),
 					'pscategory' => $this->stringType()->defaultValue(''),
 					'wherebought' => $this->stringType()->defaultValue(''),
-					'prodcount' => $this->stringType()->defaultValue(''),
+					'prodcount' => $this->integer(),
 					'parent_id' => $this->integer(10),
 					'ssalesprocessesid' => $this->integer(10),
 				],
@@ -1881,11 +2162,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_paymentsin_status' => [
 				'columns' => [
-					'paymentsin_statusid' => $this->primaryKey(10),
+					'paymentsin_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'paymentsin_status' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['paymentsin_status_pk', 'paymentsin_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1928,11 +2212,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_paymentsout_status' => [
 				'columns' => [
-					'paymentsout_statusid' => $this->primaryKey(10),
+					'paymentsout_statusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'paymentsout_status' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['paymentsout_status_pk', 'paymentsout_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -1956,7 +2243,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_pbxmanager' => [
 				'columns' => [
-					'pbxmanagerid' => $this->primaryKey(10),
+					'pbxmanagerid' => $this->integer(10)->autoIncrement()->notNull(),
 					'direction' => $this->stringType(10),
 					'callstatus' => $this->stringType(20),
 					'starttime' => $this->dateTime(),
@@ -1967,7 +2254,7 @@ class Base3 extends \App\Db\Importers\Base
 					'sourceuuid' => $this->stringType(100),
 					'gateway' => $this->stringType(20),
 					'customer' => $this->integer(10),
-					'user' => $this->stringType(100),
+					'user' => $this->smallInteger(),
 					'customernumber' => $this->stringType(100),
 					'customertype' => $this->stringType(100),
 					'customernumber_extra' => $this->stringType(100),
@@ -1976,14 +2263,20 @@ class Base3 extends \App\Db\Importers\Base
 					['index_sourceuuid', 'sourceuuid'],
 					['index_pbxmanager_id', 'pbxmanagerid'],
 				],
+				'primaryKeys' => [
+					['pbxmanager_pk', 'pbxmanagerid']
+				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
 			],
 			'vtiger_pbxmanager_gateway' => [
 				'columns' => [
-					'id' => $this->primaryKey(10),
+					'id' => $this->integer(10)->autoIncrement()->notNull(),
 					'gateway' => $this->stringType(20),
 					'parameters' => $this->text(),
+				],
+				'primaryKeys' => [
+					['pbxmanager_gateway_pk', 'id']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2015,11 +2308,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_picklist' => [
 				'columns' => [
-					'picklistid' => $this->primaryKey(10),
+					'picklistid' => $this->integer(10)->autoIncrement()->notNull(),
 					'name' => $this->stringType(200)->notNull(),
 				],
 				'index' => [
 					['picklist_name_idx', 'name', true],
+				],
+				'primaryKeys' => [
+					['picklist_pk', 'picklistid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2056,7 +2352,7 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_portal' => [
 				'columns' => [
-					'portalid' => $this->primaryKey(10),
+					'portalid' => $this->integer(10)->autoIncrement()->notNull(),
 					'portalname' => $this->stringType(200)->notNull(),
 					'portalurl' => $this->stringType()->notNull(),
 					'sequence' => $this->integer(3)->notNull(),
@@ -2065,6 +2361,9 @@ class Base3 extends \App\Db\Importers\Base
 				],
 				'index' => [
 					['portal_portalname_idx', 'portalname'],
+				],
+				'primaryKeys' => [
+					['portal_pk', 'portalid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2112,13 +2411,16 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_priority' => [
 				'columns' => [
-					'priorityid' => $this->primaryKey(10),
+					'priorityid' => $this->integer(10)->autoIncrement()->notNull(),
 					'priority' => $this->stringType(200)->notNull(),
 					'sortorderid' => $this->integer(10)->notNull()->defaultValue(0),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 				],
 				'index' => [
 					['priority_priority_idx', 'priority', true],
+				],
+				'primaryKeys' => [
+					['priority_pk', 'priorityid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2197,10 +2499,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_profile' => [
 				'columns' => [
-					'profileid' => $this->primaryKey(10),
+					'profileid' => $this->integer(10)->autoIncrement()->notNull(),
 					'profilename' => $this->stringType(50)->notNull(),
 					'description' => $this->text(),
 					'directly_related_to_role' => $this->integer(1)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['profile_pk', 'profileid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2291,11 +2596,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_progress' => [
 				'columns' => [
-					'progressid' => $this->primaryKey(10),
+					'progressid' => $this->integer(10)->autoIncrement()->notNull(),
 					'progress' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['progress_pk', 'progressid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2357,14 +2665,17 @@ class Base3 extends \App\Db\Importers\Base
 					'projectmilestonename' => $this->stringType(),
 					'projectmilestone_no' => $this->stringType(100),
 					'projectmilestonedate' => $this->stringType(),
+					'projectmilestone_status' => $this->stringType()->defaultValue(''),
 					'projectid' => $this->integer(10),
 					'projectmilestonetype' => $this->stringType(100),
 					'projectmilestone_priority' => $this->stringType(),
 					'projectmilestone_progress' => $this->stringType(10),
 					'sum_time' => $this->decimal('10,2')->defaultValue(0),
+					'parentid' => $this->integer(10),
 				],
 				'index' => [
 					['projectid', 'projectid'],
+					['vtiger_projectmilestone_parentid_idx', 'parentid'],
 				],
 				'primaryKeys' => [
 					['projectmilestone_pk', 'projectmilestoneid']
@@ -2374,11 +2685,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projectmilestone_priority' => [
 				'columns' => [
-					'projectmilestone_priorityid' => $this->primaryKey(10),
+					'projectmilestone_priorityid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projectmilestone_priority' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projectmilestone_priority_pk', 'projectmilestone_priorityid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2386,6 +2700,23 @@ class Base3 extends \App\Db\Importers\Base
 			'vtiger_projectmilestone_priority_seq' => [
 				'columns' => [
 					'id' => $this->integer(10)->notNull(),
+				],
+				'engine' => 'InnoDB',
+				'charset' => 'utf8'
+			],
+			'vtiger_projectmilestone_status' => [
+				'columns' => [
+					'projectmilestone_statusid' => $this->integer()->autoIncrement()->notNull(),
+					'projectmilestone_status' => $this->stringType(),
+					'presence' => $this->smallInteger(1)->defaultValue(1),
+					'picklist_valueid' => $this->integer(10)->defaultValue(0),
+					'sortorderid' => $this->smallInteger(5)->defaultValue(0),
+				],
+				'columns_mysql' => [
+					'presence' => $this->tinyInteger(1)->defaultValue(1),
+				],
+				'primaryKeys' => [
+					['projectmilestone_status_pk', 'projectmilestone_statusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2402,11 +2733,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projectmilestonetype' => [
 				'columns' => [
-					'projectmilestonetypeid' => $this->primaryKey(10),
+					'projectmilestonetypeid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projectmilestonetype' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projectmilestonetype_pk', 'projectmilestonetypeid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2420,11 +2754,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projectpriority' => [
 				'columns' => [
-					'projectpriorityid' => $this->primaryKey(10),
+					'projectpriorityid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projectpriority' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projectpriority_pk', 'projectpriorityid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2438,12 +2775,15 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projectstatus' => [
 				'columns' => [
-					'projectstatusid' => $this->primaryKey(10),
+					'projectstatusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projectstatus' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
 					'color' => $this->stringType(25)->defaultValue('#E6FAD8'),
+				],
+				'primaryKeys' => [
+					['projectstatus_pk', 'projectstatusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2498,11 +2838,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projecttaskpriority' => [
 				'columns' => [
-					'projecttaskpriorityid' => $this->primaryKey(10),
+					'projecttaskpriorityid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projecttaskpriority' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projecttaskpriority_pk', 'projecttaskpriorityid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2516,11 +2859,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projecttaskprogress' => [
 				'columns' => [
-					'projecttaskprogressid' => $this->primaryKey(10),
+					'projecttaskprogressid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projecttaskprogress' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projecttaskprogress_pk', 'projecttaskprogressid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2534,11 +2880,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projecttaskstatus' => [
 				'columns' => [
-					'projecttaskstatusid' => $this->primaryKey(10),
+					'projecttaskstatusid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projecttaskstatus' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projecttaskstatus_pk', 'projecttaskstatusid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2552,11 +2901,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projecttasktype' => [
 				'columns' => [
-					'projecttasktypeid' => $this->primaryKey(10),
+					'projecttasktypeid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projecttasktype' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projecttasktype_pk', 'projecttasktypeid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2570,11 +2922,14 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_projecttype' => [
 				'columns' => [
-					'projecttypeid' => $this->primaryKey(10),
+					'projecttypeid' => $this->integer(10)->autoIncrement()->notNull(),
 					'projecttype' => $this->stringType(200)->notNull(),
 					'presence' => $this->integer(1)->notNull()->defaultValue(1),
 					'picklist_valueid' => $this->integer(10)->notNull()->defaultValue(0),
 					'sortorderid' => $this->integer(10)->defaultValue(0),
+				],
+				'primaryKeys' => [
+					['projecttype_pk', 'projecttypeid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'
@@ -2588,10 +2943,13 @@ class Base3 extends \App\Db\Importers\Base
 			],
 			'vtiger_publicholiday' => [
 				'columns' => [
-					'publicholidayid' => $this->primaryKey(10)->unsigned(),
+					'publicholidayid' => $this->integer(10)->unsigned()->autoIncrement()->notNull(),
 					'holidaydate' => $this->date()->notNull(),
 					'holidayname' => $this->stringType()->notNull(),
 					'holidaytype' => $this->stringType(25),
+				],
+				'primaryKeys' => [
+					['publicholiday_pk', 'publicholidayid']
 				],
 				'engine' => 'InnoDB',
 				'charset' => 'utf8'

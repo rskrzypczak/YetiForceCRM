@@ -9,6 +9,7 @@
  */
 class Settings_LangManagement_GetChart_Action extends Settings_Vtiger_Basic_Action
 {
+
 	/**
 	 * Process.
 	 *

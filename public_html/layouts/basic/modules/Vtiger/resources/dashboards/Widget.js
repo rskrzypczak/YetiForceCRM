@@ -58,6 +58,20 @@ jQuery.Class('Vtiger_Widget_Js', {
 		return false;
 	},
 	/**
+	 * Get widget data
+	 * @returns {*}
+	 */
+	getWidgetData() {
+		if (typeof this.widgetData !== 'undefined') {
+			return this.widgetData;
+		}
+		let widgetDataEl = this.getContainer().find('.widgetData');
+		if (widgetDataEl.length) {
+			return this.widgetData = JSON.parse(widgetDataEl.val());
+		}
+		return false;
+	},
+	/**
 	 * Predefined functions that will replace options function type
 	 * @type {Object}
 	 */
@@ -82,6 +96,9 @@ jQuery.Class('Vtiger_Widget_Js', {
 				return meta.hidden !== true;
 			},
 			formatter: function datalabelsFormatter(value, context) {
+				if (typeof this.widgetData !== 'undefined' && typeof this.widgetData.valueType !== 'undefined' && this.widgetData.valueType === 'count') {
+					return app.parseNumberToShow(value, 0);
+				}
 				if (
 					typeof context.chart.data.datasets[context.datasetIndex].dataFormatted !== "undefined" &&
 					typeof context.chart.data.datasets[context.datasetIndex].dataFormatted[context.dataIndex] !== "undefined"
@@ -106,6 +123,9 @@ jQuery.Class('Vtiger_Widget_Js', {
 				}
 				// if there is no formatted data so try to format it
 				if (String(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]).length > 0 && !isNaN(Number(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]))) {
+					if (typeof this.widgetData !== 'undefined' && typeof this.widgetData.valueType !== 'undefined' && this.widgetData.valueType === 'count') {
+						return app.parseNumberToShow(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index], 0);
+					}
 					return app.parseNumberToShow(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]);
 				}
 				// return raw data at idex
@@ -119,6 +139,9 @@ jQuery.Class('Vtiger_Widget_Js', {
 				}
 				// if there is no formatted title so try to format it
 				if (String(data.labels[tooltipItem.index]).length > 0 && !isNaN(Number(data.labels[tooltipItem.index]))) {
+					if (typeof this.widgetData !== 'undefined' && typeof this.widgetData.valueType !== 'undefined' && this.widgetData.valueType === 'count') {
+						return app.parseNumberToShow(data.labels[tooltipItem.index], 0);
+					}
 					return app.parseNumberToShow(data.labels[tooltipItem.index]);
 				}
 				// return label at index
@@ -1214,7 +1237,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 		var recordsCountBtn = thisInstance.getContainer().find('.recordCount');
 		recordsCountBtn.on('click', function () {
 			var url = recordsCountBtn.data('url');
-			AppConnector.request(url).then(function (response) {
+			AppConnector.request(url).done(function (response) {
 				recordsCountBtn.find('.count').html(response.result.totalCount);
 				recordsCountBtn.find('[data-fa-i2svg]').addClass('d-none')
 					.attr('aria-hidden', true);
@@ -1296,7 +1319,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 			if (height < 400) {
 				height = 400;
 			}
-			this.print(imgEl.get(0), title, width, height);
+			this.printImage(imgEl.get(0), title, width, height);
 		};
 		app.htmlToImage(printContainer, (imageBase64) => {
 			imgEl.get(0).src = imageBase64;
@@ -1309,7 +1332,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 	downloadHtmlAsImage(element) {
 		let widget = element.closest('.dashboardWidget'),
 			title = widget.find('.dashboardTitle').prop('title');
-		app.htmlToImage(element.closest('.dashboardWidget').find('.js-print__container').get(0), (imageBase64) => {
+		app.htmlToImage(widget.find('.js-print__container').get(0), (imageBase64) => {
 			let anchor = document.createElement('a');
 			anchor.setAttribute('href', imageBase64);
 			anchor.setAttribute('download', title + '.png');
@@ -1321,10 +1344,10 @@ jQuery.Class('Vtiger_Widget_Js', {
 	 */
 	registerPrintAndDownload() {
 		$('.js-print--download', this.getContainer()).on('click', (e) => {
-			this.downloadHtmlAsImage(e.target);
+			this.downloadHtmlAsImage($(e.target));
 		});
 		$('.js-print', this.getContainer()).on('click', (e) => {
-			this.printHtml(e.target);
+			this.printHtml($(e.target));
 		});
 	},
 	//Place holdet can be extended by child classes and can use this to handle the post load
@@ -1386,6 +1409,19 @@ jQuery.Class('Vtiger_Widget_Js', {
 		image.src = base64Image;
 		return image;
 	},
+	printImage(imgEl, title, width, height) {
+		const print = window.open('', 'PRINT', 'height=' + height + ',width=' + width);
+		print.document.write('<html><head><title>' + title + '</title>');
+		print.document.write('</head><body >');
+		print.document.write($('<div>').append(imgEl).html());
+		print.document.write('</body></html>');
+		print.document.close(); // necessary for IE >= 10
+		print.focus(); // necessary for IE >= 10
+		setTimeout(function () {
+			print.print();
+			print.close();
+		}, 1000);
+	},
 	registerHeaderButtons: function registerHeaderButtons() {
 		const container = this.getContainer();
 		const header = container.find('.dashboardWidgetHeader');
@@ -1393,17 +1429,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 		const printWidget = header.find('.printWidget');
 		printWidget.on('click', (e) => {
 			const imgEl = this.getChartImage();
-			const print = window.open('', 'PRINT', 'height=400,width=600');
-			print.document.write('<html><head><title>' + header.find('.dashboardTitle').text() + '</title>');
-			print.document.write('</head><body >');
-			print.document.write($('<div>').append(imgEl).html());
-			print.document.write('</body></html>');
-			print.document.close(); // necessary for IE >= 10
-			print.focus(); // necessary for IE >= 10
-			setTimeout(function () {
-				print.print();
-				print.close();
-			}, 1000);
+			this.printImage(imgEl, header.find('.dashboardTitle').text(), 600, 400);
 		});
 		downloadWidget.on('click', (e) => {
 			const imgEl = $(this.getChartImage());
@@ -1433,7 +1459,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 			var currentElement = $(e.currentTarget);
 			var dashboardWidgetHeader = currentElement.closest('.dashboardWidgetHeader');
 			var drefresh = dashboardWidgetHeader.find('a[name="drefresh"]');
-			thisInstance.setUrlSwitch(currentElement).then(function (data) {
+			thisInstance.setUrlSwitch(currentElement).done(function (data) {
 				if (data) {
 					drefresh.click();
 				}
@@ -1531,7 +1557,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 		if (this.paramCache && (additionalWidgetFilters.length || widgetFilters.length)) {
 			thisInstance.setFilterToCache(params.url, params.data);
 		}
-		AppConnector.request(params).then((data) => {
+		AppConnector.request(params).done((data) => {
 			data = $(data);
 			let footer = data.filter('.widgetFooterContent');
 			refreshContainer.progressIndicator({
@@ -1547,7 +1573,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 				})
 			}
 			contentContainer.html(data).trigger(YetiForce_Widget_Js.widgetPostRefereshEvent);
-		}, () => {
+		}).fail(() => {
 			refreshContainer.progressIndicator({
 				'mode': 'hide'
 			});
@@ -1683,7 +1709,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 				url += '&sortorder=' + parent.find('.changeRecordSort').data('sort');
 			}
 			contentContainer.progressIndicator();
-			AppConnector.request(url).then(function (data) {
+			AppConnector.request(url).done(function (data) {
 				contentContainer.progressIndicator({
 					'mode': 'hide'
 				});
@@ -1720,6 +1746,7 @@ jQuery.Class('Vtiger_Widget_Js', {
 		if (typeof this.chartData === "undefined" || typeof this.getChartContainer() === "undefined") {
 			return false;
 		}
+		this.getWidgetData();// load widget data for label formatters
 		const type = this.getType();
 		let data = this.generateData();
 		data.datasets = this.loadDatasetOptions(data);
@@ -1827,12 +1854,20 @@ jQuery.Class('Vtiger_Widget_Js', {
 				dataset.data.forEach((dataItem, index) => {
 					let defaultLabel = data.labels[index];
 					if (String(defaultLabel).length > 0 && !isNaN(Number(defaultLabel))) {
-						defaultLabel = app.parseNumberToShow(defaultLabel);
+						if (typeof this.widgetData !== 'undefined' && typeof this.widgetData.valueType !== 'undefined' && this.widgetData.valueType === 'count') {
+							defaultLabel = app.parseNumberToShow(defaultLabel, 0);
+						} else {
+							defaultLabel = app.parseNumberToShow(defaultLabel);
+						}
 					}
 					if (typeof dataset.label !== "undefined") {
 						let label = dataset.label;
 						if (String(label).length > 0 && !isNaN(Number(label))) {
-							label = app.parseNumberToShow(label);
+							if (typeof this.widgetData !== 'undefined' && typeof this.widgetData.valueType !== 'undefined' && this.widgetData.valueType === 'count') {
+								label = app.parseNumberToShow(label, 0);
+							} else {
+								label = app.parseNumberToShow(label);
+							}
 						}
 						defaultLabel += ' (' + label + ')';
 					}
@@ -1856,7 +1891,11 @@ jQuery.Class('Vtiger_Widget_Js', {
 				dataset.data.forEach((dataItem, index) => {
 					let dataFormatted = dataItem;
 					if (String(dataItem).length > 0 && !isNaN(Number(dataItem))) {
-						dataFormatted = app.parseNumberToShow(dataItem);
+						if (typeof this.widgetData !== 'undefined' && typeof this.widgetData.valueType !== 'undefined' && this.widgetData.valueType === 'count') {
+							dataFormatted = app.parseNumberToShow(dataItem, 0);
+						} else {
+							dataFormatted = app.parseNumberToShow(dataItem);
+						}
 					}
 					dataset.dataFormatted.push(dataFormatted);
 				});
@@ -2231,7 +2270,7 @@ YetiForce_Widget_Js('YetiForce_Calendar_Widget_Js', {}, {
 			};
 			thisInstance.setFilterToCache(url, paramCache);
 		}
-		AppConnector.request(params).then(function (events) {
+		AppConnector.request(params).done(function (events) {
 			var height = (thisInstance.getCalendarView().find('.fc-bg :first').height() - thisInstance.getCalendarView().find('.fc-day-number').height()) - 10;
 			var width = (thisInstance.getCalendarView().find('.fc-day-number').width() / 2) - 10;
 			for (var i in events.result) {
@@ -2299,6 +2338,7 @@ YetiForce_Widget_Js('YetiForce_Calendar_Widget_Js', {}, {
 		this.loadCalendarData(true);
 		this.registerChangeView();
 		this.registerFilterChangeEvent();
+		app.showPopoverElementView(this.getContainer().find('.js-popover-tooltip'));
 	},
 	refreshWidget: function () {
 		var thisInstance = this;
@@ -2593,13 +2633,13 @@ YetiForce_Widget_Js('YetiForce_History_Widget_Js', {}, {
 			params.data['page'] = loadMoreHandler.data('nextpage');
 			var refreshContainer = parent.find('.dashboardWidgetContent');
 			refreshContainer.progressIndicator();
-			AppConnector.request(params).then(function (data) {
+			AppConnector.request(params).done(function (data) {
 				refreshContainer.progressIndicator({
 					'mode': 'hide'
 				});
 				loadMoreHandler.replaceWith(data);
 				thisInstance.registerLoadMore();
-			}, function () {
+			}).fail(function () {
 				refreshContainer.progressIndicator({
 					'mode': 'hide'
 				});
@@ -2614,6 +2654,7 @@ YetiForce_Widget_Js('YetiForce_MiniList_Widget_Js', {}, {
 		this.restrictContentDrag();
 		this.registerFilterChangeEvent();
 		this.registerRecordsCount();
+		app.showPopoverElementView(this.getContainer().find('.js-popover-tooltip'));
 	},
 	postRefreshWidget: function () {
 		this.registerRecordsCount();
@@ -2653,7 +2694,7 @@ YetiForce_Widget_Js('YetiForce_Notebook_Widget_Js', {}, {
 		var params = url + '&content=true&mode=save&contents=' + encodeURIComponent(textarea.val());
 		var refreshContainer = this.container.find('.dashboardWidgetContent');
 		refreshContainer.progressIndicator();
-		AppConnector.request(params).then(function (data) {
+		AppConnector.request(params).done(function (data) {
 			refreshContainer.progressIndicator({
 				'mode': 'hide'
 			});

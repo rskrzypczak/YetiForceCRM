@@ -84,7 +84,6 @@ class Settings_Dav_Module_Model extends Settings_Vtiger_Module_Model
 		if (in_array('WebDav', $type)) {
 			$this->createUserDirectory($userID);
 		}
-
 		return $key;
 	}
 
@@ -96,9 +95,10 @@ class Settings_Dav_Module_Model extends Settings_Vtiger_Module_Model
 	public function deleteKey($userId)
 	{
 		$uri = (new \App\Db\Query())->select(['uri'])->from('dav_principals')->where(['userid' => $userId]);
-		$calendarId = (new \App\Db\Query())->select(['calendarid'])->from('dav_calendars')->where(['principaluri' => $uri]);
+		$calendarId = (new \App\Db\Query())->select(['calendarid'])->from('dav_calendarinstances')->where(['principaluri' => $uri]);
 		$dbCommand = App\Db::getInstance()->createCommand();
 		$dbCommand->delete('dav_calendars', ['id' => $calendarId])->execute();
+		$dbCommand->delete('dav_calendarinstances', ['calendarid' => $calendarId])->execute();
 		$dbCommand->delete('dav_addressbooks', ['principaluri' => $uri])->execute();
 		$dbCommand->delete('dav_users', ['userid' => $userId])->execute();
 		$dbCommand->delete('dav_principals', ['userid' => $userId])->execute();

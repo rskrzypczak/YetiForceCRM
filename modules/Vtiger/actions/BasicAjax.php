@@ -10,6 +10,7 @@
 
 class Vtiger_BasicAjax_Action extends \App\Controller\Action
 {
+
 	/**
 	 * Function to check permission.
 	 *

@@ -120,7 +120,7 @@ Settings_Workflows_Edit_Js("Settings_Workflows_Edit3_Js", {}, {
 					thisInstance[preSaveActionFunctionName].apply(thisInstance, [taskType]);
 				}
 				var params = form.serializeFormData();
-				AppConnector.request(params).then(function (data) {
+				AppConnector.request(params).done(function (data) {
 					if (data.result) {
 						thisInstance.getTaskList();
 						app.hideModalWindow();
@@ -283,7 +283,7 @@ Settings_Workflows_Edit_Js("Settings_Workflows_Edit3_Js", {}, {
 				'enabled': true
 			}
 		});
-		AppConnector.request(params).then(function (data) {
+		AppConnector.request(params).done(function (data) {
 			$('#taskListContainer').html(data);
 			progressIndicatorElement.progressIndicator({mode: 'hide'});
 		});
@@ -313,7 +313,7 @@ Settings_Workflows_Edit_Js("Settings_Workflows_Edit3_Js", {}, {
 					'enabled': true
 				}
 			});
-			AppConnector.request(url).then(function (data) {
+			AppConnector.request(url).done(function (data) {
 				if (data.result == "ok") {
 					var params = {
 						title: app.vtranslate('JS_MESSAGE'),
@@ -334,22 +334,21 @@ Settings_Workflows_Edit_Js("Settings_Workflows_Edit3_Js", {}, {
 			var message = app.vtranslate('LBL_DELETE_CONFIRMATION');
 			Vtiger_Helper_Js.showConfirmationBox({
 				'message': message
-			}).then(
-				function () {
-					var currentElement = $(e.currentTarget);
-					var deleteUrl = currentElement.data('deleteurl');
-					AppConnector.request(deleteUrl).then(function (data) {
-						if (data.result == 'ok') {
-							thisInstance.getTaskList();
-							var params = {
-								title: app.vtranslate('JS_MESSAGE'),
-								text: app.vtranslate('JS_TASK_DELETED_SUCCESSFULLY'),
-								type: 'success'
-							};
-							Vtiger_Helper_Js.showPnotify(params);
-						}
-					});
+			}).done(function () {
+				var currentElement = $(e.currentTarget);
+				var deleteUrl = currentElement.data('deleteurl');
+				AppConnector.request(deleteUrl).done(function (data) {
+					if (data.result == 'ok') {
+						thisInstance.getTaskList();
+						var params = {
+							title: app.vtranslate('JS_MESSAGE'),
+							text: app.vtranslate('JS_TASK_DELETED_SUCCESSFULLY'),
+							type: 'success'
+						};
+						Vtiger_Helper_Js.showPnotify(params);
+					}
 				});
+			});
 		});
 	},
 	registerFillTaskFromEmailFieldEvent: function () {
@@ -423,7 +422,7 @@ Settings_Workflows_Edit_Js("Settings_Workflows_Edit3_Js", {}, {
 	},
 	registerAddFieldEvent: function () {
 		$('#addFieldBtn').on('click', function (e) {
-			var newAddFieldContainer = $('.js-add-basic-field-container').clone(true, true).removeClass('js-add-basic-field-container d-none').addClass('conditionRow');
+			var newAddFieldContainer = $('.js-add-basic-field-container').clone(true, true).removeClass('js-add-basic-field-container d-none').addClass('js-conditions-row');
 			$('select', newAddFieldContainer).addClass('select2');
 			$('#save_fieldvaluemapping').append(newAddFieldContainer);
 			//change in to chosen elements
@@ -529,7 +528,7 @@ Settings_Workflows_Edit_Js("Settings_Workflows_Edit3_Js", {}, {
 			App.Fields.Picklist.showSelect2ElementView(fieldSpecificUi, params)
 		} else if (fieldSpecificUi.is('select')) {
 			if (fieldSpecificUi.hasClass('chzn-select')) {
-				App.Fields.Picklist.changeSelectElementView(fieldSpecificUi)
+				App.Fields.Picklist.showChoosenElementView(fieldSpecificUi);
 			} else {
 				App.Fields.Picklist.showSelect2ElementView(fieldSpecificUi);
 			}
@@ -604,7 +603,7 @@ Settings_Workflows_Edit_Js("Settings_Workflows_Edit3_Js", {}, {
 					enabled: true
 				}
 			});
-			AppConnector.request(params).then(function (data) {
+			AppConnector.request(params).done(function (data) {
 				progressIndicatorElement.progressIndicator({'mode': 'hide'})
 				var createEntityContainer = $('#addCreateEntityContainer');
 				createEntityContainer.html(data);

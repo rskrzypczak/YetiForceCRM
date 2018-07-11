@@ -74,15 +74,17 @@ Vtiger_Edit_Js("Products_Edit_Js", {}, {
 	 * Function to register event for enabling base currency on radio button clicked
 	 */
 	registerEventForEnableBaseCurrency: function () {
-		var container = this.getMoreCurrenciesContainer();
-		var thisInstance = this;
+		let container = this.getMoreCurrenciesContainer();
+		let currencyLabel = $('.js-currency');
+		let thisInstance = this;
 		$(container).on('change', '.baseCurrency', function (e) {
-			var elem = thisInstance.getCurrentElem(e);
-			var parentElem = elem.closest('tr');
+			let elem = thisInstance.getCurrentElem(e);
+			let parentElem = elem.closest('tr');
 			if (elem.is(':checked')) {
-				var convertedPrice = $('.convertedPrice', parentElem).val();
+				let convertedPrice = $('.convertedPrice', parentElem).val();
 				thisInstance.baseCurrencyName = parentElem.data('currencyId');
 				thisInstance.baseCurrency = convertedPrice;
+				currencyLabel.text(parentElem.data('currency-symbol'));
 			}
 		});
 		return this;
@@ -192,15 +194,12 @@ Vtiger_Edit_Js("Products_Edit_Js", {}, {
 				'record': recordId
 			};
 
-			AppConnector.request(moreCurrenciesParams).then(
-				function (data) {
-					moreCurrenciesContainer.html(data);
-					aDeferred.resolve(data);
-				},
-				function (textStatus, errorThrown) {
-					aDeferred.reject(textStatus, errorThrown);
-				}
-			);
+			AppConnector.request(moreCurrenciesParams).done(function (data) {
+				moreCurrenciesContainer.html(data);
+				aDeferred.resolve(data);
+			}).fail(function (textStatus, errorThrown) {
+				aDeferred.reject(textStatus, errorThrown);
+			});
 		} else {
 			aDeferred.resolve();
 		}
@@ -214,7 +213,7 @@ Vtiger_Edit_Js("Products_Edit_Js", {}, {
 		var form = this.getForm();
 		$('#moreCurrencies').on('click', function (e) {
 			var progressInstance = $.progressIndicator();
-			thisInstance.getMoreCurrenciesUI().then(function (data) {
+			thisInstance.getMoreCurrenciesUI().done(function () {
 				var moreCurrenciesUi;
 				moreCurrenciesUi = $('#moreCurrenciesContainer').find('.multiCurrencyEditUI');
 				if (moreCurrenciesUi.length > 0) {
@@ -301,7 +300,7 @@ Vtiger_Edit_Js("Products_Edit_Js", {}, {
 			var unitPrice = thisInstance.getUnitPrice();
 			if ((multiCurrencyContent.length < 1) && (unitPrice.length > 0)) {
 				e.preventDefault();
-				thisInstance.getMoreCurrenciesUI().then(function (data) {
+				thisInstance.getMoreCurrenciesUI().done(function () {
 					thisInstance.preSaveConfigOfForm(form);
 					InitialFormData = form.serialize();
 					form.submit();
@@ -328,7 +327,7 @@ Vtiger_Edit_Js("Products_Edit_Js", {}, {
 		var errorMessage, params;
 		var form = $('#currencyContainer');
 		var editViewForm = thisInstance.getForm();
-		var modalContainer = $('#'+Window.lastModalId);
+		var modalContainer = $('#' + Window.lastModalId);
 		var enabledBaseCurrency = modalContainer.find('.enableCurrency').filter(':checked');
 		if (enabledBaseCurrency.length < 1) {
 			errorMessage = app.vtranslate('JS_PLEASE_SELECT_BASE_CURRENCY_FOR_PRODUCT');
