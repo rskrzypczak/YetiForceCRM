@@ -128,7 +128,9 @@ class ModuleBasic
 		}
 
 		Profile::initForModule($this);
-
+		\App\Cache::clear();
+		\App\Cache::staticClear();
+		\App\Cache::clearOpcache();
 		self::syncfile();
 
 		if ($this->isentitytype) {
