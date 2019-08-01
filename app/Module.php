@@ -18,7 +18,7 @@ class Module
 	 *
 	 * @var array
 	 */
-	protected static $tabdataCache;
+	public static $tabdataCache;
 
 	/**
 	 * Init tabdata from file.

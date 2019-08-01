@@ -119,6 +119,16 @@ class Users_Privileges_Model extends Users_Record_Model
 			$mixed = 1;
 		}
 		$moduleModel = Vtiger_Module_Model::getInstance($mixed);
+		if(!$moduleModel){
+		 $fromDb = 	(new \App\Db\Query())->from('vtiger_tab')->all();
+		 $fromCache = \App\Module::$tabdataCache['tabId'];
+		 $tabData = require \ROOT_DIRECTORY . '/user_privileges/tabdata.php';
+		 $fromFile = $tabData['tabId'];
+		 $result = \opcache_invalidate(\ROOT_DIRECTORY . '/user_privileges/tabdata.php', true);
+		 $tabData = require \ROOT_DIRECTORY . '/user_privileges/tabdata.php';
+		 $fromFileAfterClean = $tabData['tabId'];
+		 \App\Log::error('dataTab:' . print_r(['$fromDb'=>$fromDb,'$fromCache'=>$fromCache,'$fromFile'=>$fromFile,'$result'=>$result,'$fromFileAfterClean'=>$fromFileAfterClean],true));
+		}
 		return $moduleModel->isActive() && (($this->isAdminUser() || (isset($profileTabsPermissions[$moduleModel->getId()][$actionId]) && $profileTabsPermissions[$moduleModel->getId()][$actionId] === Settings_Profiles_Module_Model::IS_PERMITTED_VALUE)));
 	}
 
