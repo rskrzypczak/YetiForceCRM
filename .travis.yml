@@ -42,7 +42,7 @@ cache:
     - $HOME/build/YetiForceCompany/cache
 branches:
   only:
-    - developer
+    - travis_test
     - /^greenkeeper/.*$/
 
 services:
