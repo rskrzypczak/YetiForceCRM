@@ -637,6 +637,9 @@ class PackageImport extends PackageExport
 			chdir(ROOT_DIRECTORY);
 			\App\UserPrivilegesFile::recalculateAll();
 		});
+		\App\Cache::clear();
+		\App\Cache::staticClear();
+		\App\Cache::clearOpcache();
 	}
 
 	/**
@@ -1065,9 +1068,10 @@ class PackageImport extends PackageExport
 			$viewer->clearAllCache();
 			Functions::recurseDelete('cache/templates_c');
 		});
-		\App\Module::createModuleMetaFile();
 		\App\Cache::clear();
+		\App\Cache::staticClear();
 		\App\Cache::clearOpcache();
+		\App\Module::createModuleMetaFile();
 		file_put_contents('cache/logs/update.log', ob_get_contents(), FILE_APPEND);
 		ob_end_clean();
 	}

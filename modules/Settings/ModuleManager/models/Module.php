@@ -298,6 +298,8 @@ class Settings_ModuleManager_Module_Model extends Vtiger_Module_Model
 		if (1 === $module->type) {
 			\Vtiger_Inventory_Model::getInstance($module->name)->createInventoryTables();
 		}
+		\App\Cache::clear();
+		\App\Cache::staticClear();
 		return $module;
 	}
 

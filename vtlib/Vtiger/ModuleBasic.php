@@ -218,8 +218,9 @@ class ModuleBasic
 		\Settings_Vtiger_Module_Model::deleteSettingsFieldBymodule($this->name);
 		$this->__delete();
 		$this->deleteDir($moduleInstance);
-		self::syncfile();
 		\App\Cache::clear();
+		\App\Cache::staticClear();
+		self::syncfile();
 	}
 
 	/**
