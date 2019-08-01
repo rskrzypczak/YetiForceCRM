@@ -4,11 +4,6 @@ dist: trusty
 
 language: php
 
-php:
-  - 7.1
-  - 7.3
-  - nightly
-
 stages:
   - composer validate
   - test
@@ -16,9 +11,6 @@ stages:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: nightly
-    - php: 7.3
 
 env:
   global:
