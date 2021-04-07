@@ -63,4 +63,11 @@ class Vtiger_Date_InventoryField extends Vtiger_Basic_InventoryField
 		}
 		return $dateValue;
 	}
+
+	/** {@inheritdoc} */
+	public function isMandatory()
+	{
+		$config = $this->getParamsConfig();
+		return isset($config['mandatory']) ? 'false' !== $config['mandatory'] : true;
+	}
 }
