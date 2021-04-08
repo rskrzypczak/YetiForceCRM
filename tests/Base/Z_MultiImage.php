@@ -45,16 +45,16 @@ class Z_MultiImage extends \Tests\Base
 	 * @return []
 	 * @codeCoverageIgnore
 	 */
-	public function providerImageForRecord()
-	{
-		$data = [];
-		for ($i = 0; $i < 4; ++$i) {
-			$data[] = ['Users', 'imagename', $i];
-			$data[] = ['Contacts', 'imagename', $i];
-			$data[] = ['Products', 'imagename', $i];
-		}
-		return $data;
-	}
+	// public function providerImageForRecord()
+	// {
+	// 	$data = [];
+	// 	for ($i = 0; $i < 4; ++$i) {
+	// 		$data[] = ['Users', 'imagename', $i];
+	// 		$data[] = ['Contacts', 'imagename', $i];
+	// 		$data[] = ['Products', 'imagename', $i];
+	// 	}
+	// 	return $data;
+	// }
 
 	/**
 	 * Data provider for the delete record images test.
@@ -82,53 +82,53 @@ class Z_MultiImage extends \Tests\Base
 	 * @throws \App\Exceptions\AppException
 	 * @dataProvider providerImageForRecord
 	 */
-	public function testAttachImageToRecord($module, $field, $file): void
-	{
-		switch ($module) {
-			case 'Users':
-				$record = \App\User::getUserIdByName('admin');
-				break;
-			case 'Contacts':
-				$record = \Tests\Base\C_RecordActions::createContactRecord(static::$cacheContact)->getId();
-				static::$cacheContact = true;
-				break;
-			case 'Products':
-				$record = \Tests\Base\C_RecordActions::createProductRecord(static::$cacheProduct)->getId();
-				static::$cacheProduct = true;
-				break;
-			default:
-				return; // @codeCoverageIgnore
-				break;
-		}
-		$filePathSrc = 'tests' . \DIRECTORY_SEPARATOR . 'data' . \DIRECTORY_SEPARATOR . 'MultiImage' . \DIRECTORY_SEPARATOR . static::$files[$file];
-		$filePathDst = 'tests' . \DIRECTORY_SEPARATOR . 'tmp' . \DIRECTORY_SEPARATOR . 'MultiImage' . \DIRECTORY_SEPARATOR . md5(rand(0, 9999)) . substr(static::$files[$file], \strpos(static::$files[$file], '.'));
-		\copy($filePathSrc, $filePathDst);
-		$fileObj = \App\Fields\File::loadFromPath($filePathDst);
-		$hash = $fileObj->generateHash(true, $filePathDst);
-		$attach[] = [
-			'name' => static::$files[$file],
-			'size' => \vtlib\Functions::showBytes($fileObj->getSize()),
-			'key' => $hash,
-			'path' => $fileObj->getPath()
-		];
-		$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
-		$this->assertSame($record, $recordModel->getId(), 'Record ' . $record . '(' . $module . ') load error');
-		$recordModel->set($field, \App\Json::encode($attach));
-		$recordModel->save();
-		$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
-		$fieldModel = $recordModel->getField($field);
-		$data = \App\Json::decode(\App\Purifier::decodeHtml($fieldModel->getUITypeModel()->getDisplayValueEncoded($recordModel->get($field), $recordModel->getId(), $fieldModel->getFieldInfo()['limit'])));
-		$this->assertNotEmpty($data);
-		$this->assertSame(static::$files[$file], $data[0]['name'], 'File name should be equal');
-		$this->assertSame(\vtlib\Functions::showBytes($fileObj->getSize()), $data[0]['size'], 'File size should be equal');
-		$this->assertFileExists($fileObj->getPath(), 'File should exists');
-		$this->assertSame($hash, $data[0]['key'], 'Key should be equal');
-		parse_str(\parse_url($data[0]['imageSrc'])['query'], $url);
-		$this->assertSame($module, $url['module'], 'Module in image url should be equal to provided');
-		$this->assertSame($field, $url['field'], 'Field name in image url should be equal to provided');
-		$this->assertSame($hash, $url['key'], 'Key in image url should be equal to provided');
-		$this->assertSame((string) $record, $url['record'], 'Record in image url should be equal to provided');
-	}
+	// public function testAttachImageToRecord($module, $field, $file): void
+	// {
+	// 	switch ($module) {
+	// 		case 'Users':
+	// 			$record = \App\User::getUserIdByName('admin');
+	// 			break;
+	// 		case 'Contacts':
+	// 			$record = \Tests\Base\C_RecordActions::createContactRecord(static::$cacheContact)->getId();
+	// 			static::$cacheContact = true;
+	// 			break;
+	// 		case 'Products':
+	// 			$record = \Tests\Base\C_RecordActions::createProductRecord(static::$cacheProduct)->getId();
+	// 			static::$cacheProduct = true;
+	// 			break;
+	// 		default:
+	// 			return; // @codeCoverageIgnore
+	// 			break;
+	// 	}
+	// 	$filePathSrc = 'tests' . \DIRECTORY_SEPARATOR . 'data' . \DIRECTORY_SEPARATOR . 'MultiImage' . \DIRECTORY_SEPARATOR . static::$files[$file];
+	// 	$filePathDst = 'tests' . \DIRECTORY_SEPARATOR . 'tmp' . \DIRECTORY_SEPARATOR . 'MultiImage' . \DIRECTORY_SEPARATOR . md5(rand(0, 9999)) . substr(static::$files[$file], \strpos(static::$files[$file], '.'));
+	// 	\copy($filePathSrc, $filePathDst);
+	// 	$fileObj = \App\Fields\File::loadFromPath($filePathDst);
+	// 	$hash = $fileObj->generateHash(true, $filePathDst);
+	// 	$attach[] = [
+	// 		'name' => static::$files[$file],
+	// 		'size' => \vtlib\Functions::showBytes($fileObj->getSize()),
+	// 		'key' => $hash,
+	// 		'path' => $fileObj->getPath()
+	// 	];
+	// 	$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
+	// 	$this->assertSame($record, $recordModel->getId(), 'Record ' . $record . '(' . $module . ') load error');
+	// 	$recordModel->set($field, \App\Json::encode($attach));
+	// 	$recordModel->save();
+	// 	$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
+	// 	$fieldModel = $recordModel->getField($field);
+	// 	$data = \App\Json::decode(\App\Purifier::decodeHtml($fieldModel->getUITypeModel()->getDisplayValueEncoded($recordModel->get($field), $recordModel->getId(), $fieldModel->getFieldInfo()['limit'])));
+	// 	$this->assertNotEmpty($data);
+	// 	$this->assertSame(static::$files[$file], $data[0]['name'], 'File name should be equal');
+	// 	$this->assertSame(\vtlib\Functions::showBytes($fileObj->getSize()), $data[0]['size'], 'File size should be equal');
+	// 	$this->assertFileExists($fileObj->getPath(), 'File should exists');
+	// 	$this->assertSame($hash, $data[0]['key'], 'Key should be equal');
+	// 	parse_str(\parse_url($data[0]['imageSrc'])['query'], $url);
+	// 	$this->assertSame($module, $url['module'], 'Module in image url should be equal to provided');
+	// 	$this->assertSame($field, $url['field'], 'Field name in image url should be equal to provided');
+	// 	$this->assertSame($hash, $url['key'], 'Key in image url should be equal to provided');
+	// 	$this->assertSame((string) $record, $url['record'], 'Record in image url should be equal to provided');
+	// }
 
 	/**
 	 * Delete record image test.
