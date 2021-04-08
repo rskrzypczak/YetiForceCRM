@@ -62,14 +62,14 @@ class Z_MultiImage extends \Tests\Base
 	 * @return []
 	 * @codeCoverageIgnore
 	 */
-	public function providerDeleteImageForRecord()
-	{
-		return [
-			['Users', 'imagename', 9],
-			['Contacts', 'imagename', 10],
-			['Products', 'imagename', 11],
-		];
-	}
+	// public function providerDeleteImageForRecord()
+	// {
+	// 	return [
+	// 		['Users', 'imagename', 9],
+	// 		['Contacts', 'imagename', 10],
+	// 		['Products', 'imagename', 11],
+	// 	];
+	// }
 
 	/**
 	 * Attach image to record test.
@@ -141,33 +141,33 @@ class Z_MultiImage extends \Tests\Base
 	 * @throws \App\Exceptions\AppException
 	 * @dataProvider providerDeleteImageForRecord
 	 */
-	public function testDeleteImage($module, $field, $file): void
-	{
-		switch ($module) {
-			case 'Users':
-				$record = \App\User::getUserIdByName('admin');
-				break;
-			case 'Contacts':
-				$record = \Tests\Base\C_RecordActions::createContactRecord(static::$cacheContact)->getId();
-				static::$cacheContact = true;
-				break;
-			case 'Products':
-				$record = \Tests\Base\C_RecordActions::createProductRecord(static::$cacheProduct)->getId();
-				static::$cacheProduct = true;
-				break;
-			default:
-				return; // @codeCoverageIgnore
-				break;
-		}
-		$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
-		$data = \App\Json::decode($recordModel->get($field));
-		\Vtiger_MultiImage_UIType::deleteRecord($recordModel);
-		$this->assertFileDoesNotExist($data[0]['path'], 'File should be removed');
-		$recordModel->set($field, \App\Json::encode([]));
-		$recordModel->save();
-		$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
-		$this->assertSame(\App\Json::encode([]), $recordModel->get($field), 'Value should be empty');
-	}
+	// public function testDeleteImage($module, $field, $file): void
+	// {
+	// 	switch ($module) {
+	// 		case 'Users':
+	// 			$record = \App\User::getUserIdByName('admin');
+	// 			break;
+	// 		case 'Contacts':
+	// 			$record = \Tests\Base\C_RecordActions::createContactRecord(static::$cacheContact)->getId();
+	// 			static::$cacheContact = true;
+	// 			break;
+	// 		case 'Products':
+	// 			$record = \Tests\Base\C_RecordActions::createProductRecord(static::$cacheProduct)->getId();
+	// 			static::$cacheProduct = true;
+	// 			break;
+	// 		default:
+	// 			return; // @codeCoverageIgnore
+	// 			break;
+	// 	}
+	// 	$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
+	// 	$data = \App\Json::decode($recordModel->get($field));
+	// 	\Vtiger_MultiImage_UIType::deleteRecord($recordModel);
+	// 	$this->assertFileDoesNotExist($data[0]['path'], 'File should be removed');
+	// 	$recordModel->set($field, \App\Json::encode([]));
+	// 	$recordModel->save();
+	// 	$recordModel = \Vtiger_Record_Model::getInstanceById($record, $module);
+	// 	$this->assertSame(\App\Json::encode([]), $recordModel->get($field), 'Value should be empty');
+	// }
 
 	/**
 	 * Add multi image test.
